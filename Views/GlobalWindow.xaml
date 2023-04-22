@@ -1,0 +1,307 @@
+﻿<Window x:Class="TP2_POO2.Views.GlobalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+
+        xmlns:local="clr-namespace:TP2_POO2.Views"
+        mc:Ignorable="d"
+        Title="GlobalWindow" Height="450" Width="828"  Icon="{iconPacks:FontAwesomeImage Kind=AffiliatethemeBrands}">
+    <Grid>
+        <DockPanel LastChildFill="True">
+
+            <Menu DockPanel.Dock="Top">
+
+                <MenuItem Header="Fichier">
+
+                    <MenuItem Header="Ouvrir..." x:Name="MenuItemOpen"/>
+
+                    <Separator/>
+
+                    <MenuItem Header="Quitter" Command="{Binding ExitCommand}"/>
+
+                </MenuItem>
+
+                <MenuItem Header="Patient">
+
+                    <Button VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" Height="40" Command="{Binding NewCompteCommand}" Margin="71,0,71,0">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconFontAwesome Kind="HospitalAltSolid" VerticalAlignment="Center" Width="25" />
+                            <Label Content="Ajouter patient" FontWeight="Bold" FontStyle="Italic" />
+                        </StackPanel>
+                    </Button>
+                </MenuItem>
+
+            </Menu>
+
+            <TabControl>
+
+                <TabItem Header="Listes des patients" Margin="177,-2,-196,0" Width="Auto" >
+                    <Grid Margin="5,5,5,10" RenderTransformOrigin="0.504,0.5">
+                        <DataGrid  ItemsSource="{Binding patients}" SelectedItem="{Binding SelectedPatient}" AutoGenerateColumns="False"  >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Binding="{Binding Id}"  IsReadOnly="True"/>
+
+                                <DataGridTextColumn Header="Prénom" Binding="{Binding Prenom}"  IsReadOnly="True" Width="*"/>
+                                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}"  IsReadOnly="True" Width="*"/>
+                                <DataGridTextColumn Header="Ville" Binding="{Binding Ville}"  IsReadOnly="True" Width="*"/>
+                                <DataGridTextColumn Header="Genre" Binding="{Binding Genre}"  IsReadOnly="True" Width="*"/>
+                                <DataGridTextColumn Header="Date de Naissance" Binding="{Binding DateN}"  IsReadOnly="True" Width="*" />
+                                <DataGridTextColumn Header="Email" Binding="{Binding Courriel}"  IsReadOnly="True" Width="*"/>
+                                <DataGridTemplateColumn Header="Supprimer">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="Supprimer" Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" CommandParameter="{Binding}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Historique" Margin="196,-2,-248,0" Width="Auto">
+                    <Grid Margin="5,5,5,10" RenderTransformOrigin="0.504,0.5">
+                        <DataGrid ItemsSource="{Binding historiques}" AutoGenerateColumns="True" />
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Performance" Margin="249,-2,-291,0" Width="Auto">
+                    <Grid Margin="5,5,5,10" RenderTransformOrigin="0.504,0.5">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" MinWidth="349"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" Text="Fichier de test (test.csv):" FontSize="20"/>
+                        <TextBox Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" IsReadOnly="True"  Text="{Binding TestFilePath}"/>
+                        <Button Grid.Column="1" Grid.Row="1" Margin="5,5,0,16" HorizontalAlignment="Left" Command="{Binding TestFileCommand}" Width="392" FontSize="20" >
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconFontAwesome Kind="FileAltRegular" VerticalAlignment="Center" Width="25" />
+                                <Label Content="Importer" FontWeight="Bold" FontStyle="Italic" />
+                            </StackPanel>
+                        </Button>
+                        <Button  Command="{Binding UploadKCommand}" FontSize="20" Margin="18,5,42,14" Grid.Row="1" >
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconFontAwesome Kind="HospitalSolid" VerticalAlignment="Center" Width="25" />
+                                <Label Content="Lancer" FontWeight="Bold" FontStyle="Italic" />
+                            </StackPanel>
+                        </Button>
+                        <TextBlock Grid.Column="0" Grid.Row="3" Margin="5,5,5,5" Text="Taux de reconnaissance (%) ----> " FontSize="20"/>
+                        <TextBlock Grid.Column="1" Grid.Row="3" Margin="5,5,5,5"  Text="{Binding performance.Score}" FontSize="20"/>
+
+                        <!-- Ajoutez ici le contrôle pour afficher la matrice de confusion -->
+                        <Grid Grid.Row="4" Grid.RowSpan="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Text="Matrice de confusion " FontSize="20" />
+
+                            <Grid Margin="414,5,-395,10" Grid.RowSpan="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <ItemsControl Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Path=ConfusionMatrix.Keys}" Margin="35,0,0,0">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" Margin="10" FontWeight="Bold" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+
+                                <ItemsControl Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=ConfusionMatrix}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBlock Grid.Column="0" Text="{Binding Path=Key}" Margin="10" FontWeight="Bold" />
+
+                                                <ItemsControl Grid.Column="1" ItemsSource="{Binding Path=Value}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding}" Margin="10" />
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <StackPanel Orientation="Horizontal" />
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                </ItemsControl>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                </TabItem>
+                <TabItem Header="Paramétrage" Margin="-214,-2,157,0" Width="Auto">
+                    <!-- Contenu pour le paramétrage du classificateur -->
+                    <Grid Margin="5,5,5,10" RenderTransformOrigin="0.504,0.5">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Margin="38,28,24,19" Text="Valeur de k:" FontSize="30"/>
+                        <TextBox Grid.Column="1" Grid.Row="0" Margin="5,5,5,5" Grid.ColumnSpan="1" Text="{Binding performance.K}"/>
+
+                        <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,5,10,18" Text="Fichier d'apprentissage (train.csv):" FontSize="25"/>
+                        <TextBox Grid.Column="1" Grid.Row="1" Margin="5,5,5,5"  IsReadOnly="True" Grid.ColumnSpan="2" Text="{Binding TrainFilePath}"/>
+                        <Button Grid.Column="1" Grid.Row="2" Margin="5,5,0,6" HorizontalAlignment="Left" Command="{Binding TrainFileCommand}" Width="377">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconFontAwesome Kind="FileAltSolid" Width="25" />
+                                <Label  Content="Importer" FontWeight="Bold" FontStyle="Italic" />
+                            </StackPanel>
+                        </Button>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Diagnostic" Margin="214,-2,-264,0" Width="Auto">
+                    <Grid Margin="5, 5, 5, 10"
+      RenderTransformOrigin="0.504, 0.5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- CP -->
+                        <Label Grid.Row="0"           Grid.Column="0"           Content="CP :" Margin="58,10,58,10" />
+                        <TextBox Grid.Row="0"  Grid.Column="1"  Text="{Binding prediction.Cp}"      Margin="42,13,42,13" />
+
+                        <!-- THAL -->
+                        <Label  Grid.Column="0"  Content="THAL :" Margin="60,10,155,10" Grid.Row="1" />
+                        <TextBox Text="{Binding prediction.Thal}"  Margin="42,10,42,10" Grid.Column="1" Grid.Row="1" />
+                        <!-- CA -->
+                        <Label Grid.Row="2"  Grid.Column="0"  Content="CA :" Margin="58,10,97,10" />
+                        <TextBox Grid.Row="2"  Grid.Column="1"  Text="{Binding prediction.Ca}"  Margin="42,10,42,10" />
+
+                        <!-- OLDPEAK -->
+                        <Label Grid.Row="3" Grid.Column="0"  Content="OLDPEAK :" Margin="60,10,95,10" />
+                        <TextBox Grid.Row="3"  Grid.Column="1"  Text="{Binding prediction.Oldpeak}"  Margin="42,10,42,10" />
+
+                        <!-- THALCH -->
+                        <Label Grid.Row="4"  Grid.Column="0"    Content="THALCH :" Margin="58,10,125,10" />
+                        <TextBox Grid.Row="4"  Grid.Column="1"  Text="{Binding prediction.Thalach}"   Margin="42,10,42,10" />
+
+                        <!-- TARGET -->
+                        <Label Grid.Row="5"  Grid.Column="0"  Content="TARGET : (true or false)" Margin="58,6,192,10" />
+                        <TextBox Grid.Row="5" Grid.Column="1"     Text="{Binding prediction.Target}"    Margin="42,13,42,13" />
+
+
+                        <ComboBox SelectedItem="{Binding selectPatient, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding comboboxValuesPatients }" VerticalAlignment="Top" Grid.Column="1" VerticalContentAlignment="Center" Height="29" Margin="43,7,39,0" Grid.Row="6" />
+
+
+                        <!-- Diagnostic Button -->
+                        <Button Grid.Row="7"  Grid.Column="1"     Command="{Binding DiagnosticCommand}"   Margin="6,4,20,-1">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconFontAwesome Kind="HospitalSymbolSolid" VerticalAlignment="Center" Width="25" />
+                                <Label Content="Diagnostic" FontWeight="Bold" FontStyle="Italic" />
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Sortie -->
+                        <Label Grid.Row="7"           Grid.Column="0"           Content="{Binding prediction.Resultat, UpdateSourceTrigger=PropertyChanged}"          Margin="7,6,21,9"           HorizontalContentAlignment="Center" />
+                        <Label Content="Patient:" HorizontalAlignment="Left" Margin="58,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="157" Height="34"/>
+                    </Grid>
+
+
+                </TabItem>
+                <TabItem Header="Profil"  Margin="264,-2,-320,0" Width="Auto">
+
+
+                    <Grid Margin="5,5,5,10" RenderTransformOrigin="0.504,0.5">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="37*"/>
+                            <ColumnDefinition Width="79*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+
+                        </Grid.RowDefinitions>
+
+                        <Label Content="Nom" VerticalAlignment="Top" Grid.Column="0" Margin="53,31,53,0" Height="26" FontWeight="Bold" FontStyle="Italic" />
+                        <Button VerticalAlignment="Center" Grid.Column="1" Grid.Row="6" Height="40" Command="{Binding UpadteCommand}" Margin="71,0,71,0">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconFontAwesome Kind="HospitalUserSolid" VerticalAlignment="Center" Width="25" />
+                                <Label Content="Modifier" FontWeight="Bold" FontStyle="Italic" />
+                            </StackPanel>
+                        </Button>
+                        <TextBox Text="{Binding doctoor.Nom, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Grid.Column="1" VerticalContentAlignment="Center" Height="26" Margin="71,31,71,0" />
+
+                        <ComboBox SelectedItem="{Binding doctoor.Ville, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Villes}" VerticalAlignment="Top" Grid.Column="1" VerticalContentAlignment="Center" Height="26" Margin="71,17,71,0" Grid.Row="2" />
+                        <Label Content="Ville" HorizontalAlignment="Left" Margin="53,0,0,0" Grid.Row="2" VerticalAlignment="Center" FontWeight="Bold" FontStyle="Italic" Height="43" Width="122"/>
+                        <Label Content="Prénom" VerticalAlignment="Center" Grid.Column="0" Margin="53,0,53,0" Height="26" FontWeight="Bold" FontStyle="Italic" Grid.Row="1" />
+                        <Label Content="Courriel" VerticalAlignment="Center" Grid.Column="0" Margin="53,0,53,0" Height="26" FontWeight="Bold" FontStyle="Italic" Grid.Row="3" />
+                        <TextBox Text="{Binding doctoor.Prenom, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Grid.Column="1" VerticalContentAlignment="Center" Height="26" Margin="71,0,71,0" Grid.Row="1" />
+                        <TextBox Text="{Binding doctoor.Courriel, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Grid.Column="1" VerticalContentAlignment="Center" Height="39" Margin="71,0,71,0" Grid.Row="3" />
+
+
+                        <Button VerticalAlignment="Center" Height="43" Command="{Binding BackCommand}" Margin="26,0,28,0" Grid.Row="4" FontWeight="Bold" FontStyle="Italic" >
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconFontAwesome Kind="HomeSolid" VerticalAlignment="Center" Width="25" />
+                                <Label Content="Back" FontWeight="Bold" FontStyle="Italic" />
+                            </StackPanel>
+                        </Button>
+
+
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </Grid>
+
+
+</Window>
