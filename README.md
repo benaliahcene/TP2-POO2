@@ -21,4 +21,25 @@ familiarize you with these notions:
 ✓ Making use of a created library.
 
 
+ Technologies utilisées
+☞ Langage de programmation → C Sharp ou C#
+En ce qui concerne les différentes bibliothèques à utiliser :
+☞ Windows Presentation Foundation ou WPF → permettant de créer les
+interfaces graphiques et d’utiliser le MVVM.
+☞ Microsoft Entity Framework Core → permettant d’établir la communication avec une base de données et d’utiliser l’ORM.
+☞ KnnLibrary → c’est une bibliothèque fournie avec le format .DLL et elle
+permet d’utiliser le k-NN.
+☞ MahApps.Metro.IconPacks 1 → permettant d’exploiter les différents packs
+d’icônes comme Font Awesome.
+
+ Technologies used
+☞ Programming language → C Sharp or C#
+Regarding the different libraries to be used:
+☞ Windows Presentation Foundation or WPF → allowing to create the
+graphical interfaces and to use the MVVM.
+☞ Microsoft Entity Framework Core → allowing to establish communication with a database and to use the ORM.
+☞ KnnLibrary → this is a library provided with the .DLL format and it
+allows to use the k-NN.
+☞ MahApps.Metro.IconPacks 1 → allowing to use different packs
+of icons like Font Awesome.
 
