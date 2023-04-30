@@ -116,7 +116,7 @@ namespace TP2_POO2.Models
 
         private void SetIsValid()
         {
-            this._isValid = !string.IsNullOrEmpty(this.Nom) && !string.IsNullOrEmpty(this.Prenom) && !string.IsNullOrEmpty(this.Courriel) && !string.IsNullOrEmpty(this.Ville);
+            this._isValid = !string.IsNullOrEmpty(this.Nom) && !string.IsNullOrEmpty(this.Prenom) && !string.IsNullOrEmpty(this.Courriel);
         }
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = "")

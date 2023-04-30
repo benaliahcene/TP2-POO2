@@ -23,7 +23,7 @@ namespace TP2_POO2.Models
             {
                 if (this._cp != value)
                 {
-                    this._cp = (int)value;
+                    this._cp = value;
                     SetIsValid();
                     this.OnPropertyChanged();
                 }
@@ -37,7 +37,7 @@ namespace TP2_POO2.Models
             {
                 if (this._oldpeak != value)
                 {
-                    this._oldpeak = (int)value;
+                    this._oldpeak = value;
                     SetIsValid();
                     this.OnPropertyChanged();
                 }
@@ -51,7 +51,7 @@ namespace TP2_POO2.Models
             {
                 if (this._thalach != value)
                 {
-                    this._thalach = (int)value;
+                    this._thalach = value;
                     SetIsValid();
                     this.OnPropertyChanged();
                 }
@@ -65,7 +65,7 @@ namespace TP2_POO2.Models
             {
                 if (this._thal != value)
                 {
-                    this._thal = (int)value;
+                    this._thal = value;
                     SetIsValid();
                     this.OnPropertyChanged();
                 }
@@ -93,7 +93,7 @@ namespace TP2_POO2.Models
             {
                 if (this._ca != value)
                 {
-                    this._ca = (int)value;
+                    this._ca = value;
                     SetIsValid();
                     this.OnPropertyChanged();
                 }

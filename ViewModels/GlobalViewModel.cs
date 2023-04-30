@@ -109,6 +109,7 @@ namespace TP2_POO2.ViewModels
         public string sortie { get; set; }
 
         public ObservableCollection<string> Villes { get; set; }
+        public ObservableCollection<string> Dia { get; set; }
         public List<Models.Doctor> doctors { get; set; }
         private Views.GlobalWindow _welcome;
         public List<string> names { get; set; }
@@ -132,6 +133,11 @@ namespace TP2_POO2.ViewModels
             "Lévis",
             "Quebec",
             "Montreal"
+            };
+            this.Dia = new ObservableCollection<string>()
+            {
+            "True",
+            "False"
             };
             TpDbContext tpDbContext = new TpDbContext();
             patients = tpDbContext.Patients.Where(c => c.DoctorId == this.idselected).ToList();
@@ -232,7 +238,7 @@ namespace TP2_POO2.ViewModels
             if (openFileDialog.ShowDialog() == true)
             {
                 TrainFilePath = openFileDialog.FileName;
-                // Traiter le fichier ici
+                
             }
         }
         private void TestFile()
@@ -241,7 +247,6 @@ namespace TP2_POO2.ViewModels
             if (openFileDialog.ShowDialog() == true)
             {
                 TestFilePath = openFileDialog.FileName;
-                // Traiter le fichier ici
             }
         }
 
@@ -271,7 +276,7 @@ namespace TP2_POO2.ViewModels
                     {
 
                         this.prediction.PatientId = this.selectIdPatient;
-                        this.prediction.Resultat= $"\nPrediction of sample is -> {_Heart.Predict(heart_samples[0])} (expert -> {heart_samples[0].Label})\n";
+                        this.prediction.Resultat= $"Prediction of sample is -> {_Heart.Predict(heart_samples[0])} (expert -> {heart_samples[0].Label})\n";
                         Models.Historique historique= new Models.Historique();
                         historique.Resultat = this.prediction.Resultat;
                         historique.NameOfPatient = selectPatient;
@@ -286,10 +291,10 @@ namespace TP2_POO2.ViewModels
 
                         MessageBox.Show($"\nPrediction of sample is -> {_Heart.Predict(heart_samples[0])} (expert -> {heart_samples[0].Label})\n", "Erreur 404", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                        Views.GlobalWindow globalWindow = new Views.GlobalWindow(this.idselected);
+                   /*     Views.GlobalWindow globalWindow = new Views.GlobalWindow(this.idselected);
                         globalWindow.Show();
                         _welcome.Close();
-
+*/
 
 
                     }

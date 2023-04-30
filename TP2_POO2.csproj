@@ -27,10 +27,10 @@
 
   <ItemGroup>
     <Reference Include="CsvHelper">
-      <HintPath>..\KnnLibrary\CsvHelper.dll</HintPath>
+      <HintPath>..\POO2\KnnLibrary\CsvHelper.dll</HintPath>
     </Reference>
     <Reference Include="KnnLibrary">
-      <HintPath>..\KnnLibrary\KnnLibrary.dll</HintPath>
+      <HintPath>..\POO2\KnnLibrary\KnnLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 

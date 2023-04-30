@@ -58,7 +58,7 @@
                                 </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
-                        
+
                     </Grid>
                 </TabItem>
                 <TabItem Header="Historique" Margin="196,-2,-248,0" Width="Auto">
@@ -230,8 +230,8 @@
                         <TextBox Grid.Row="4"  Grid.Column="1"  Text="{Binding prediction.Thalach}"   Margin="42,10,42,10" />
 
                         <!-- TARGET -->
-                        <Label Grid.Row="5"  Grid.Column="0"  Content="TARGET : (true or false)" Margin="58,6,192,10" />
-                        <TextBox Grid.Row="5" Grid.Column="1"     Text="{Binding prediction.Target}"    Margin="42,13,42,13" />
+                        <Label Grid.Row="5"  Grid.Column="0"  Content="TARGET : " Margin="58,6,192,10" />
+                        <ComboBox SelectedItem="{Binding prediction.Target, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Dia}"  Margin="44,9,38,9" Grid.Column="1" Grid.Row="5" />
 
 
                         <ComboBox SelectedItem="{Binding selectPatient, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding comboboxValuesPatients }" VerticalAlignment="Top" Grid.Column="1" VerticalContentAlignment="Center" Height="29" Margin="43,7,39,0" Grid.Row="6" />

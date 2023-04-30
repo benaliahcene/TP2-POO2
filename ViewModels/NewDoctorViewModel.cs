@@ -86,7 +86,8 @@ namespace TP2_POO2.ViewModels
         private void Back()
         {
             DoctorLoginWindow doctorLoginWindow = new DoctorLoginWindow();
-            doctorLoginWindow.Show(); 
+            doctorLoginWindow.Show();
+            this._welcome.Close();
             RequestClose?.Invoke(this, EventArgs.Empty);
 
 
@@ -97,7 +98,7 @@ namespace TP2_POO2.ViewModels
           
 
 
-
+           
             Models.Doctor doctor = new Models.Doctor();
             doctor.Nom = this.Doctor.Nom;
             doctor.Prenom = this.Doctor.Prenom;
@@ -112,18 +113,27 @@ namespace TP2_POO2.ViewModels
                 doctor.Genre = "Féminin";
             }
             doctor.Ville = this.Doctor.Ville;
+            if (doctor.IsValid)
+            {
+                TpDbContext tpDbContext = new TpDbContext();
+                tpDbContext.Doctors.Add(doctor);
+                tpDbContext.SaveChanges();
 
-            TpDbContext tpDbContext = new TpDbContext();
-            tpDbContext.Doctors.Add(doctor);
-            tpDbContext.SaveChanges();
+                MessageBox.Show("Votre compte a été créé avec succès!", "Sing up", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                Views.DoctorLoginWindow doctorLoginWindow = new DoctorLoginWindow();
+                doctorLoginWindow.Show();
+                this._welcome.Close();
+                RequestClose?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                MessageBox.Show("Attentions toutes champs sont obligatoires!", "Sing up", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+            }
 
 
-            MessageBox.Show("Votre compte a été créé avec succès!", "Sing up", MessageBoxButton.OK, MessageBoxImage.Warning);
 
-            Views.DoctorLoginWindow doctorLoginWindow = new DoctorLoginWindow();
-            doctorLoginWindow.Show();
-            this._welcome.Close();
-            RequestClose?.Invoke(this, EventArgs.Empty);
 
 
         }
